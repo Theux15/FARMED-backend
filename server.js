@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcryptjs');
@@ -11,14 +12,19 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(cors()); // Adicione esta linha para permitir requisições de outros domínios
 
+const DB_HOST = process.env.DB_HOST;
+const DB_NAME = process.env.DB_NAME;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 // Configuração da conexão com o banco de dados MySQL
 const db = mysql.createConnection({
-    host: 'sql10.freesqldatabase.com',
+    host: DB_HOST,
     port: 3306,
-    user: 'sql10748412',
-    password: 'mjNujtIggN',
-    database: 'sql10748412'
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_NAME
 });
 
 db.connect((err) => {
